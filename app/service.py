@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask
+from flask import Flask, render_template
 from common import util
+from flask_bootstrap import Bootstrap
+
 
 app= Flask(__name__)
 config = util.load_config()
-print config["port"]
+
+bootstrap = Bootstrap(app)
 
 @app.route('/')
 def hello_world():
-    return 'hello world'
+    return render_template('index.html', name="kevin yu")
 
 if __name__ == '__main__':
     app.run()
