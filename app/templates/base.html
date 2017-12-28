@@ -1,0 +1,22 @@
+{% extends 'bootstrap/base.html' %} 
+    {% block head %} 
+        {{ super() }} 
+        {% include 'include/_header.html' %} 
+    {% endblock %} 
+    
+    {% block style %}
+        {{ super() }}
+
+        <!-- Material Design fonts -->
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+        <link rel="stylesheet" text="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+        <!-- Bootstrap Material Design -->
+        <!-- Dropdown.js -->
+        <!-- codehilite -->
+
+        <style>
+            body {
+                padding-top: 70px
+            }
+        </style>
+    {% endblock %}
