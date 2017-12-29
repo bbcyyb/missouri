@@ -1,0 +1,36 @@
+<div class="navbar navbar-primary navbar-fixed-top" stype="box-shadow: 0px 0px 5px #000000;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-material-light-blue-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="javascript:void(0)" class="navbar-brand">Flask</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-material-light-blue-collapse">
+            <ul class="nav navbar-nav">
+                <li {% if url_for('blog.index') is current_link %}class="active" {%  endif %}>
+                    <a href="{{ url_for('blog.index') }}">主页</a>
+                </li>
+                <li {% if url_for('blog.blog') is current_link %}class="active"{% endif %}>
+                    <a href="{{ url_for('blog.blog') }}">写博客</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('blog.user', username = current_user.username) }}">个人资料</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-mav navbar-right">
+                {% if current_user.can(Permission.MODERATE_COMMENTS) %}
+                <li><a href="{{ url_for('blog.moderate') }}"></a>管理评论</li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('auth.logout') }}">退出</a></li>
+                {% else %}
+                <li><a href="{{ url_for('auth.login') }}">登录</a></li>
+                <li><a href="{{ url_for('auth.register') }}">注册</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>
