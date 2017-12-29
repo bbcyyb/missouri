@@ -9,14 +9,54 @@
 
         <!-- Material Design fonts -->
         <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-        <link rel="stylesheet" text="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
         <!-- Bootstrap Material Design -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'bootstrap-material-design.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'ripples.min.css') }}">
         <!-- Dropdown.js -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'jquery.dropdown.css') }}">
         <!-- codehilite -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'codehilite.css') }}">
 
         <style>
             body {
                 padding-top: 70px
             }
         </style>
+    {% endblock %}
+
+    {% block navbar %}
+        {% include 'include/_navbar.html' %}
+        {# {{ nav.top.render() }} #}
+    {% endblock %}
+
+    {% block content %}
+        {{ super() }}
+        <div id="container">
+            <div id="row">
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button class="close" type="button" data-dismiss="alert">&times;</button> {{ message }}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block scripts %}
+        {{ super() }}
+        {{ moment.include_moment() }}
+        {{ moment.lang("zh-CN") }}
+
+        <script src="{{ url_for('static', filename = 'material.js') }}"></script>
+        <script src="{{ url_for('static', filename = 'ripples.min.js') }}"></script>
+        <script>
+        $.material.init();
+        </script>
+
+        <!-- Dropdown.js -->
+        <script src="{{ url_for('static', filename = 'jquery.dropdown.js') }}"></script>
+        <script>
+        $("select").dropdown();
+        </script>
     {% endblock %}
