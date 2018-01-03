@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import render_template
 from . import blog
-from ..models import Permission
+from ..model.permission import Permission
 
 
 @blog.route('/', methods=['GET'])
