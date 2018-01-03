@@ -1,5 +1,4 @@
-# -*- coding:utf-8 -*-
-
+# -*- coding: utf-8 -*-
 
 class Permission(object):
     FOLLOW = 0x01

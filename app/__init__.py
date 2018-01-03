@@ -25,6 +25,7 @@ mail = Mail()
 moment = Moment()
 pagedown = PageDown()
 
+
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 basedir = path.abspath(path.dirname(__file__))
