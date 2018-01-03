@@ -1,5 +1,3 @@
 #!/bin/bash
 
-pushd app
-python service.py
-popd
+python missouri.py runserver
