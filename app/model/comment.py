@@ -1,19 +1,23 @@
 # -*- coding: utf-8 -*-
-from app import model as curpkg
+from app import db
+from datetime import datetime
+from flask import url_for
+from markdown import markdown
+import bleach
 
 
-class Comment(curpkg.db.Model):
+class Comment(db.Model):
     __tablename__ = 'comments'
-    id = curpkg.db.Column(curpkg.db.Integer, primary_key=True)
-    body = curpkg.db.Column(curpkg.db.Text)
-    body_html = curpkg.db.Column(curpkg.db.Text)
-    timestamp = curpkg.db.Column(
-        curpkg.db.DateTime, default=curpkg.datetime.utcnow)
-    disabled = curpkg.db.Column(curpkg.db.Boolean)
-    post_id = curpkg.db.Column(
-        curpkg.db.Integer, curpkg.db.ForeignKey('posts.id'))
-    author_id = curpkg.db.Column(
-        curpkg.db.Integer, curpkg.db.ForeignKey('users.id'))
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    body_html = db.Column(db.Text)
+    timestamp = db.Column(
+        db.DateTime, default=datetime.utcnow)
+    disabled = db.Column(db.Boolean)
+    post_id = db.Column(
+        db.Integer, db.ForeignKey('posts.id'))
+    author_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'))
 
     @staticmethod
     def from_json(json_body):
@@ -24,7 +28,7 @@ class Comment(curpkg.db.Model):
 
     def to_json(self):
         comment_json = {
-            'url': curpkg.url_for('api.get_comment', id=self.id, _external=True),
+            'url': url_for('api.get_comment', id=self.id, _external=True),
             'body': self.body,
             'body_html': self.body_html,
             'timestamp': self.timestamp
@@ -35,5 +39,7 @@ class Comment(curpkg.db.Model):
     def on_body_changed(target, value, oldvalue, initiator):
         allow_tags = ['a', 'abbr', 'acronym', 'b', 'code',
                       'em', 'strong']
-        target.body_html = curpkg.bleach.linkify(curpkg.bleach.clean(curpkg.markdown(value, output_format='html'),
-                                                                     tags=allow_tags, strip=True))
+        target.body_html = bleach.linkify(
+            bleach.clean(
+                markdown(value, output_format='html'),
+                tags=allow_tags, strip=True))

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from app import model as curpkg
+from flask_login import AnonymousUserMixin
 
 
-class AnonymousUser(curpkg.AnonymousUserMixin):
+class AnonymousUser(AnonymousUserMixin):
     def can(self, permissions):
         return False
 

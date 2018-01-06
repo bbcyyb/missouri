@@ -102,3 +102,6 @@ ENV/
 
 # vscode
 .vscode/
+
+# vim temporary file
+*.swp

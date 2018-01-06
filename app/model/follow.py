@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from app import model as curpkg
+from app import db
+from datetime import datetime
 
 
-class Follow(curpkg.db.Model):
+class Follow(db.Model):
     __tablename__ = 'follows'
-    follower_id = curpkg.db.Column(
-        curpkg.db.Integer, curpkg.db.ForeignKey('users.id'), primary_key=True)
-    followed_id = curpkg.db.Column(
-        curpkg.db.Integer, curpkg.db.ForeignKey('users.id'), primary_key=True)
-    timestamp = curpkg.db.Column(
-        curpkg.db.DateTime, default=curpkg.datetime.utcnow)
+    follower_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    followed_id = db.Column(
+        db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    timestamp = db.Column(
+        db.DateTime, default=datetime.utcnow)

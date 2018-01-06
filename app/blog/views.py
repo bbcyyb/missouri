@@ -9,6 +9,7 @@ def index():
     print Permission.COMMENT
     return render_template('index.html')
 
+
 @blog.route('/blog', methods=['GET'])
 def blog():
     return render_template('index.html')
