@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from app.model import Permission
+from app.model.permission import Permission
 from app import db
 
 

@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 from flask import Blueprint, current_app
 from flask_sqlalchemy import get_debug_queries
-import app.blog.views
-import app.blog.errors
+import views
+import errors
 from ..model.permission import Permission
 
 blog = Blueprint('blog', __name__)

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from app.model import User
-from flask import url_for
 from datetime import datetime
+from flask import url_for
 from markdown import markdown
 import bleach
 from app import db
+from .user import User
 
 
 class Post(db.Model):
