@@ -25,6 +25,9 @@ manager = Manager(app)
 migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 
+@app.route('/aa', methods=['GET'])
+def aa():
+    return "<h1>aaaaa</h1>"
 
 @manager.command
 def dev():

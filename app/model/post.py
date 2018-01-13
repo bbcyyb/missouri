@@ -4,7 +4,7 @@ from flask import url_for
 from markdown import markdown
 import bleach
 from app import db
-from .user import User
+
 
 
 class Post(db.Model):
@@ -44,6 +44,7 @@ class Post(db.Model):
     def generate_fake(count=10):
         from random import seed, randint
         import forgery_py
+        from .user import User
 
         seed()
         user_count = User.query.count()

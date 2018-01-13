@@ -43,11 +43,11 @@ def create_app(config_name):
     moment.init_app(app)
     pagedown.init_app(app)
 
-    from .blog import blog as blog_blueprint
+    from .blog import blogA as blog_blueprint
     from .auth import auth as auth_blueprint
 
     app.register_blueprint(
-        blog_blueprint, static_folder='static', template_folder='templates')
+        blog_blueprint, static_folder='static', template_folder='templates', url_prefix='/main')
     app.register_blueprint(
         auth_blueprint, url_prefix='/auth'
     )
