@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from flask import render_template
-from . import blogA
-from ..model.permission import Permission
+from . import blog
 
-@blogA.route('/', methods=['GET'])
+
+@blog.route('/', methods=['GET'])
 def index():
-    print Permission.COMMENT
     return render_template('index.html')
 
 
-@blogA.route('/blog', methods=['GET'])
+@blog.route('/blog', methods=['GET'])
 def blog():
     return render_template('index.html')
