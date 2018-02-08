@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 from flask import render_template
+from flask import make_response
+from flask import redirect
 from flask import request
+from flask import url_for
 from flask_login import current_user
 from . import blog
 from ..model.permission import Permission
 from ..model.post import Post
 
+
+COOKIE_MAX_AGE = 30*24*60*60
 
 @blog.route('/')
 def index():
@@ -29,17 +34,22 @@ def index():
 
 @blog.route('/all')
 def show_all():
-    return render_template('index.html')
+    response = make_response(redirect(url_for('blog.index')))
+    response.set_cookie('show_followed','',max_age=COOKIE_MAX_AGE)
+    return response
 
 
 @blog.route('/followed')
 def show_followed():
-    pass
+    response = make_response(redirect(url_for('blog.index')))
+    response.set_cookie('show_followed','2',max_age=COOKIE_MAX_AGE)
+    return response
 
 
 @blog.route('/post/<int:id>', methods=['POST'])
 def post(id):
-    pass
+    post = Post.query.get_or_404(id) 
+    form = CommentForm()
 
 
 @blog.route('/blog')
@@ -49,7 +59,7 @@ def blog():
 
 @blog.route('/admin')
 def for_admin_only():
-    return '管理者进入'
+    return u'管理者进入'
 
 
 @blog.route('/user/<username>')
