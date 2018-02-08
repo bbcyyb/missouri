@@ -5,14 +5,15 @@ from flask import redirect
 from flask import request
 from flask import url_for
 from flask_login import current_user
-from . import blog
+from . import blog as app
 from ..model.permission import Permission
 from ..model.post import Post
 
 
-COOKIE_MAX_AGE = 30*24*60*60
+COOKIE_MAX_AGE = 30 * 24 * 60 * 60
 
-@blog.route('/')
+
+@app.route('/')
 def index():
     show_followed = False
     if current_user.is_authenticated:
@@ -32,87 +33,86 @@ def index():
         pagination=pagination)
 
 
-@blog.route('/all')
+@app.route('/all')
 def show_all():
     response = make_response(redirect(url_for('blog.index')))
-    response.set_cookie('show_followed','',max_age=COOKIE_MAX_AGE)
+    response.set_cookie('show_followed', '', max_age=COOKIE_MAX_AGE)
     return response
 
 
-@blog.route('/followed')
+@app.route('/followed')
 def show_followed():
     response = make_response(redirect(url_for('blog.index')))
-    response.set_cookie('show_followed','2',max_age=COOKIE_MAX_AGE)
+    response.set_cookie('show_followed', '2', max_age=COOKIE_MAX_AGE)
     return response
 
 
-@blog.route('/post/<int:id>', methods=['POST'])
+@app.route('/post/<int:id>', methods=['POST'])
 def post(id):
-    post = Post.query.get_or_404(id) 
-    form = CommentForm()
+    pass
 
 
-@blog.route('/blog')
+@app.route('/blog')
 def blog():
     pass
 
 
-@blog.route('/admin')
+@app.route('/admin')
 def for_admin_only():
     return u'管理者进入'
 
 
-@blog.route('/user/<username>')
+@app.route('/user/<username>')
 def user(username):
     pass
 
 
-@blog.route('/follow/<username>')
+@app.route('/follow/<username>')
 def follow(username):
     pass
 
 
-@blog.route('/unfollow/<username>')
+@app.route('/unfollow/<username>')
 def unfollow(username):
     pass
 
 
-@blog.route('/followers/<username>')
+@app.route('/followers/<username>')
 def followers(username):
     pass
 
 
-@blog.route('/followed-by/<username>')
+@app.route('/followed-by/<username>')
 def followed_by(username):
     pass
 
 
-@blog.route('/edit-profile', methods=['POST'])
+@app.route('/edit-profile', methods=['POST'])
 def edit_profile():
     pass
 
 
-@blog.route('/edit-profile/<int:id>', methods=['POST'])
+@app.route('/edit-profile/<int:id>', methods=['POST'])
 def edit_profile_admin(id):
     pass
 
 
-@blog.route('/edit/<int:id>')
+@app.route('/edit/<int:id>')
 def edit(id):
     pass
 
 
-@blog.route('/moderate', methods=['POST'])
+@app.route('/moderate', methods=['POST'])
 def moderate():
     pass
 
 
-@blog.route('/moderate/disable/<int:id>')
+@app.route('/moderate/disable/<int:id>')
 def moderate_disable(id):
     pass
 
 
-@blog.route('/moderate/enable/<int:id>')
+@app.route('/moderate/enable/<int:id>')
 def moderate_enable(id):
     pass
 
@@ -121,11 +121,11 @@ def inject_permissions():
     return dict(Permission=Permission)
 
 
-@blog.route('/shutdown')
+@app.route('/shutdown')
 def server_shutdown():
     pass
 
 
-@blog.after_app_request
+@app.after_app_request
 def after_request(response):
     pass

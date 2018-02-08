@@ -4,6 +4,7 @@ from datetime import datetime
 from flask import url_for
 from markdown import markdown
 import bleach
+from .user import User
 
 
 class Comment(db.Model):

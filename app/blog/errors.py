@@ -22,9 +22,9 @@ def forbidden_enter(error):
 
 
 @blog.app_errorhandler(500)
-def internalerror_enter(error):
+def internal_error(error):
     if request.accept_mimetypes.accept_json and not request.accept_mimetypes.accept_html:
         response = jsonify({'error': 'server internal error'})
         response.status_code = 500
         return response
-    return render_template('403.html'), 500
+    return render_template('500.html'), 500
