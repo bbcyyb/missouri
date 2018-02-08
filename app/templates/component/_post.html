@@ -5,12 +5,12 @@
         <div class="panel-heading" style="display: flex; justify-content: space-between;">
             <span>
                 <span class="profile-thumbail">
-                    <a href="{{ url_for('main.user',username=post.author.username) }}">
+                    <a href="{{ url_for('blog.user',username=post.author.username) }}">
                         <img class="img-circle profile-thumbail" src="{{ post.author.gravatar(16) }}">
                     </a>
                 </span>
                 <span class="post-author">
-                    <a href="{{ url_for('main.user',username=post.author.username) }}">
+                    <a href="{{ url_for('blog.user',username=post.author.username) }}">
                         {{ post.author.username }}
                     </a>
                 </span>
@@ -19,18 +19,18 @@
                 <span class="label">{{ moment(post.timestamp).fromNow() }}</span>
                 {% if current_user == post.author %}
                 <span class="label label-default">
-                    <a href="{{ url_for('main.edit',id=post.id) }}">编辑</a>
+                    <a href="{{ url_for('blog.edit',id=post.id) }}">编辑</a>
                 </span>
                 {% elif current_user.is_administrator() %}
                 <span class="label label-default">
-                    <a href="{{ url_for('main.edit',id=post.id) }}">编辑[管理员]</a>
+                    <a href="{{ url_for('blog.edit',id=post.id) }}">编辑[管理员]</a>
                 </span>
                 {% endif %}
                 <span class="label label-default">
-                    <a href="{{ url_for('main.post', id=post.id) }}">文章链接</a>
+                    <a href="{{ url_for('blog.post', id=post.id) }}">文章链接</a>
                 </span>
                 <span class="label label-default">
-                    <a href="{{ url_for('main.post', id=post.id) }}">{{ post.comments.count() }}个评论</a>
+                    <a href="{{ url_for('blog.post', id=post.id) }}">{{ post.comments.count() }}个评论</a>
                 </span>
             </span>
         </div>
