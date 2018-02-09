@@ -3,6 +3,7 @@
 <ul class="pagination">
     <li {% if not pagination.has_prev %} class="disabled" {% endif %}>
         <a href="{% if not pagination.has_prev %}{{ url_for(endpoint, page=pagination.page - 1, **kwargs) }}{% else %}#{% endif %}">
+            &laquo;
         </a>
     </li>
     {% for p in pagination.iter_pages() %} {% if p %} {% if p == pagination.page %}
