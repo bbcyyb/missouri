@@ -23,4 +23,4 @@ def after_request(response):
     return response
 
 
-import views
+from . import views

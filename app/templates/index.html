@@ -1,48 +1,10 @@
-{% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
-{% import 'component/_macros.html' as macros %}
-{% block title %}首页{% endblock %}
-{% block content %}
-{{ super() }}
+<html><body>
 <div class="container">
     <div class="page-header">
         <h1>
-            {% if current_user.is_authenticated %}
-            欢迎回来，{{ current_user.username }}
-            {% else %}
-            文章列表
-            {% endif %}
+            123
         </h1>
     </div>
 </div>
+    </body></html>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 well bs-component">
-            <div class="post-tabs">
-                <ul class="nav nav-tabs">
-                    <li {% if not show_follwed %} class="active" {% endif %}>
-                        <a href="{{ url_for('blog.show_all')}}">所有文章</a>
-                    </li>
-                    {% if current_user.is_authenticated %}
-                    <li {% if show_follwed %}class="active"{% endif %}>
-                        <a href="{{ url_for('blog.show_follwed') }}">我的关注</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-
-            {% include 'component/_post.html' %}
-            <nav class="text-center">
-                <ul class="pagination">
-                    {{ macros.pagination_widget(pagination, 'blog.index') }}
-                </ul>
-            </nav>
-        </div>
-    </div>
-</div>
-{% endblock %}
-{% block scripts %}
-    {{ super() }}
-    {{ pagedown.include_pagedown() }}
-{% endblock %}

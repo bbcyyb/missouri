@@ -4,7 +4,9 @@ from flask import make_response
 from flask import redirect
 from flask import request
 from flask import url_for
+from flask import current_app
 from flask_login import current_user
+from flask_sqlalchemy import get_debug_queries
 from . import blog as app
 from ..model.permission import Permission
 from ..model.post import Post
@@ -13,7 +15,7 @@ from ..model.post import Post
 COOKIE_MAX_AGE = 30 * 24 * 60 * 60
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     show_followed = False
     if current_user.is_authenticated:
@@ -22,15 +24,13 @@ def index():
         query = current_user.followed_posts
     else:
         query = Post.query
-    page = request.args.get('page', 1, type=int)
+        page = request.args.get('page', 1, type=int)
     pagination = query.order_by(Post.timestamp.desc()).paginate(
-        page, per_page=10, error_out=False)
+        page, per_page=10,
+        error_out=False)
     posts = pagination.items
-    return render_template(
-        'index.html',
-        show_followed=show_followed,
-        posts=posts,
-        pagination=pagination)
+    return render_template('index.html', show_followed=show_followed,
+                           posts=posts, pagination=pagination)
 
 
 @app.route('/all')
@@ -128,4 +128,10 @@ def server_shutdown():
 
 @app.after_app_request
 def after_request(response):
-    pass
+    for query in get_debug_queries():
+        if query.duration >= current_app.config['MISSOURI_SLOW_DB_QUERY_TIME']:
+            current_app.logger.warning(
+                'Slow query: %s\nParameters: %s\nDuration: %fs\nContext: %s\n'
+                % (query.statement, query.parameters, query.duration,
+                   query.context))
+    return response
