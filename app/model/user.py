@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from app import db
+import hashlib
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app, request, url_for
 from datetime import datetime
-import hashlib
+from .. import db
 from .permission import Permission
 from .follow import Follow
 from .role import Role
@@ -80,7 +80,7 @@ class User(UserMixin, db.Model):
 
     def is_followed_by(self, user):
         return self.followers.filter_by(follower_id=user.id) \
-                .first() is not None
+            .first() is not None
 
     @property
     def followed_posts(self):

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "component/_macros.html" as macros %}
+
+{% block content %}
+{{ super() }}
+<div class="container">
+    <div class="page-header ">
+        <h1>{{ posts[0].title }}</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 well">
+            {% set post_body = True %}
+            {% include "component/_post.html" %}
+            {% include "component/_comment.html" %}
+            <nav class="text-center">
+            <div class="pagination">
+                {{ macros.pagination_widget(pagination, 'blog.post', id=posts[0].id) }}
+            </div>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 well">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
