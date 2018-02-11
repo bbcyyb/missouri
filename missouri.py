@@ -30,12 +30,6 @@ manager.add_command('db', MigrateCommand)
 manager.add_command('runserver', Server(host='0.0.0.0', port=9000))
 
 
-@app.route('/yyb')
-def test():
-    print '=======>yyb'
-    return '123'
-
-
 @manager.command
 def dev():
     pass
