@@ -10,7 +10,7 @@ from flask_login import login_required
 from flask_login import current_user
 from . import auth as app
 from .forms import LoginForm
-from .froms import RegisterForm
+from .forms import RegisterForm
 from .. import db
 from ..model.user import User
 from ..common.email import send_mail
@@ -58,12 +58,12 @@ def register():
 @login_required
 def confirm(token):
     if current_user.confirmed:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('blog.index'))
     if current_user.confirm(token):
         flash(u'感谢您的确认')
     else:
         flash(u'链接已经失效或者过期')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('blog.index'))
 
 
 @app.before_app_request
@@ -78,7 +78,7 @@ def before_request():
 @app.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('blog.index'))
     return render_template('unconfirmed.html')
 
 
@@ -89,4 +89,4 @@ def resend_email():
     send_mail(current_user.email, u'确认您的帐号', 'confirm',
               user=current_user, token=token)
     flash(u'一份新的邮件已经发往您的邮箱')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('blog.index'))
