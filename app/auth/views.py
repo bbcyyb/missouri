@@ -51,7 +51,7 @@ def register():
         flash(u'有一份邮件已经发往您的邮箱')
         return redirect(url_for('auth.login'))
     else:
-        return render_template('register.html', title=u'注册', form=form)
+        return render_template('login.html', title=u'注册', form=form)
 
 
 @app.route('/confirm/<token>')

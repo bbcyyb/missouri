@@ -49,7 +49,7 @@ def create_app(config_name):
     app.register_blueprint(
         blog_blueprint, static_folder='static', template_folder='templates')
     app.register_blueprint(
-        auth_blueprint, url_prefix='/auth'
+        auth_blueprint, url_prefix='/auth', static_folder='static', template_folder='templates'
     )
 
     @app.template_test('current_link')
