@@ -14,7 +14,7 @@ def send_async_mail(app, msg):
 
 def send_mail(to, subject, template, **kw):
     app = current_app._get_current_object()
-    msg = Message(subject=subject, sender=app.config['FLASKY_MAIL_SENDER'],
+    msg = Message(subject=subject, sender=app.config['MISSOURI_MAIL_SENDER'],
                   recipients=[to])
     msg.body = render_template(template + '.txt', **kw)
     msg.html = render_template(template + '.html', **kw)
