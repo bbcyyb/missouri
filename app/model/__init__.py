@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from app import db, login_manager
+from .. import db
+from .. import login_manager
 from .post import Post
 from ..model.user import User
 from .anonymous_user import AnonymousUser

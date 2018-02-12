@@ -16,6 +16,7 @@ class Config(object):
     MISSOURI_ADMIN = os.environ.get('MISSOURI_ADMIN')
     MISSOURI_MAIL_SENDER = os.environ.get('MAIL_USERNAME')
     POSTS_PER_PAGE = os.environ.get('POSTS_PER_PAGE')
+    BABEL_DEFAULT_COCALE = 'zh'
     MISSOURI_SLOW_DB_QUERY_TIME = 0.5
 
     @staticmethod

@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
-from os import path, environ
+from os import path
+from os import environ
 from werkzeug.routing import BaseConverter
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -8,7 +9,9 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_moment import Moment
 from flask_pagedown import PageDown
-from flask import Flask, request
+from flask_babel import Babel
+from flask import Flask
+from flask import request
 from config import config
 
 
@@ -24,6 +27,7 @@ login_manager = LoginManager()
 mail = Mail()
 moment = Moment()
 pagedown = PageDown()
+babel = Babel()
 
 
 login_manager.session_protection = 'strong'
@@ -34,6 +38,7 @@ basedir = path.abspath(path.dirname(__file__))
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+    app.config.from_pyfile('../babel.cfg')
     config[config_name].init_app(app)
 
     bootstrap.init_app(app)
@@ -42,10 +47,10 @@ def create_app(config_name):
     mail.init_app(app)
     moment.init_app(app)
     pagedown.init_app(app)
+    babel.init_app(app)
 
     from .blog import blog as blog_blueprint
     from .auth import auth as auth_blueprint
-
     app.register_blueprint(
         blog_blueprint, static_folder='static', template_folder='templates')
     app.register_blueprint(

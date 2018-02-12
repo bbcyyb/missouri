@@ -8,6 +8,7 @@ from flask_login import login_user
 from flask_login import logout_user
 from flask_login import login_required
 from flask_login import current_user
+from flask_babel import gettext as _
 from . import auth as app
 from .forms import LoginForm
 from .forms import RegisterForm
@@ -25,7 +26,8 @@ def login():
             login_user(user, form.remember_me.data)
             return redirect(url_for('blog.index'))
         flash(u'帐号或者密码错误')
-    return render_template('login.html', title=u'登陆', form=form)
+    s = _("login")
+    return render_template('login.html', title=s, form=form)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
