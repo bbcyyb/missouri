@@ -8,7 +8,6 @@ from flask_login import login_user
 from flask_login import logout_user
 from flask_login import login_required
 from flask_login import current_user
-from flask_babel import gettext as _
 from . import auth as app
 from .forms import LoginForm
 from .forms import RegisterForm
@@ -70,11 +69,12 @@ def confirm(token):
 
 @app.before_app_request
 def before_request():
-    if current_user.is_authenticated:
-        current_user.ping()
-        if not current_user.confirmed \
-                and request.endpoint[:5] != 'auth.':
-            return redirect(url_for('auth.unconfirmed'))
+    if request.endpoint != 'static':
+        if current_user.is_authenticated:
+            current_user.ping()
+            if not current_user.confirmed \
+                    and request.endpoint[:5] != 'auth.':
+                return redirect(url_for('auth.unconfirmed'))
 
 
 @app.route('/unconfirmed')
