@@ -105,3 +105,9 @@ ENV/
 
 # vim temporary file
 *.swp
+
+# sqlite3 database file
+*.sqlite
+
+# local test script, exists sensitive information.
+run.sh

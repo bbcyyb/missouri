@@ -7,7 +7,7 @@
 ```shell
 export MAIL_USERNAME=<your email@example.com>
 export MAIL_PASSWORD=<your smtp service pasword>
-export FLASK_ADMIN=<administrator email account>
+export MISSOURI_ADMIN=<administrator email account>
 ```
 
 ## Install database migration
