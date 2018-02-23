@@ -39,7 +39,7 @@ cleanup() {
         rm -rf $DB_FILE
         echo -e "${GREEN}delte database file $DB_FILE successfully${EOS}"
     else
-        echo -e "${RED}do not find ${DB_FILE}${EOS}"
+        echo -e "${YELLOW}do not find ${DB_FILE}${EOS}"
     fi
 }
 
