@@ -35,11 +35,21 @@ environment() {
 
 cleanup() {
     DB_FILE=data-dev.sqlite
+    MIGRATIONS_FOLDER=migrations/
     echo -e "=======> start to ${SKYBLUE}clean${EOS} database"
+
+    if [ -d "$MIGRATIONS_FOLDER" ]
+    then
+        rm -rf $MIGRATIONS_FOLDER
+        echo -e "${GREEN}delte ${MIGRATIONS_FOLDER} successfully${EOS}"
+    else
+        echo -e "${YELLOW}do not find ${MIGRATIONS_FOLDER}${EOS}"
+    fi
+
     if [ -f "$DB_FILE" ]
     then
         rm -rf $DB_FILE
-        echo -e "${GREEN}delte database file $DB_FILE successfully${EOS}"
+        echo -e "${GREEN}delte database file ${DB_FILE} successfully${EOS}"
     else
         echo -e "${YELLOW}do not find ${DB_FILE}${EOS}"
     fi

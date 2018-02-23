@@ -70,10 +70,13 @@ def profile(length=25, profile_dir=None):
 @manager.command
 def deploy():
     from flask_migrate import upgrade
+    from flask_migrate import init
+    from flask_migrate import migrate
     from app.model.role import Role
     from app.model.user import User
 
-    # upgrade database migrataion
+    init()
+    migrate(message='initial migration')
     upgrade()
     # create roles
     Role.insert_roles()
