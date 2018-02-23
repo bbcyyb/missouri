@@ -19,7 +19,9 @@ usage() {
     echo -e "where"
     echo -e "-h, --help         display help info"
     echo -e "-e, --environent   display current environent variables"
-    echo -e "-c, -clean         clean all database, rollback to initial state"
+    echo -e "-c, --clean        clean all database, rollback to initial state"
+    echo -e "-u, --upgrade      upgrade database"
+    echo -e "-r, --reset        reset development environment"
     exit 1
 }
 
