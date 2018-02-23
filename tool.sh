@@ -20,13 +20,13 @@ usage() {
     echo -e "-h, --help         display help info"
     echo -e "-e, --environent   display current environent variables"
     echo -e "-c, --clean        clean all database, rollback to initial state"
-    echo -e "-u, --upgrade      upgrade database"
+    echo -e "-d, --deploy       deploy new env"
     echo -e "-r, --reset        reset development environment"
     exit 1
 }
 
 environment() {
-    echo -e "${SKYBLUE}=======> start to display current environent variables${EOS}"
+    echo -e "=======> start to ${SKYBLUE}display${EOS} current environent variables"
     echo -e "MAIL_USERNAME=${MAIL_USERNAME}"
     echo -e "MAIL_PASSWORD=${MAIL_PASSWORD}"
     echo -e "MISSOURI_ADMIN=${MISSOURI_ADMIN}"
@@ -35,7 +35,7 @@ environment() {
 
 cleanup() {
     DB_FILE=data-dev.sqlite
-    echo -e "${SKYBLUE}=======> start to clean database${EOS}"
+    echo -e "=======> start to ${SKYBLUE}clean${EOS} database"
     if [ -f "$DB_FILE" ]
     then
         rm -rf $DB_FILE
@@ -45,14 +45,14 @@ cleanup() {
     fi
 }
 
-upgrade() {
-    echo -e "${SKYBLUE}=======> start to upgrade development environment${EOS}"
-    python missouri.py db upgrade
+deploy() {
+    echo -e "=======> start to ${SKYBLUE}deploy${EOS} development environment"
+    python missouri.py deploy
 }
 
 reset() {
     cleanup
-    upgrade
+    deploy 
 }
 
 [ $# -eq 0 ] && usage
@@ -71,8 +71,8 @@ while [ $# -gt 0 ]; do
             cleanup
             shift 1
             ;;
-        -u | --upgrade)
-            upgrade
+        -d | --deploy)
+            deploy 
             shift 1
             ;;
         -r | --reset)

@@ -83,6 +83,6 @@ class Post(db.Model):
                          extensions=[
                              'markdown.extensions.extra',
                              'markdown.extensions.codehilite']),
-                target=allow_tags,
+                tags=allow_tags,
                 attributes=allow_attributes,
                 strip=True))

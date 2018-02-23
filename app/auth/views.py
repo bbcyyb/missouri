@@ -25,8 +25,7 @@ def login():
             login_user(user, form.remember_me.data)
             return redirect(url_for('blog.index'))
         flash(u'帐号或者密码错误')
-    s = _("login")
-    return render_template('login.html', title=s, form=form)
+    return render_template('login.html', title=u'登录', form=form)
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -43,13 +42,15 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data,
                     password=form.password.data, email=form.email.data)
+        # hard code to make email confirmation is passed.
+        user.confirmed = True
         db.session.add(user)
         db.session.commit()
         User.add_self_follows()
-        token = user.generate_confirm_token()
-        send_mail(user.email, u'请确认您的帐号', 'confirm',
-                  user=user, token=token)
-        flash(u'有一份邮件已经发往您的邮箱')
+        #token = user.generate_confirm_token()
+        #send_mail(user.email, u'请确认您的帐号', 'confirm',
+        #          user=user, token=token)
+        #flash(u'有一份邮件已经发往您的邮箱')
         return redirect(url_for('auth.login'))
     else:
         return render_template('login.html', title=u'注册', form=form)

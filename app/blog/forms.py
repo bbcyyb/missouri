@@ -13,7 +13,7 @@ from ..model.role import Role
 
 
 class PostForm(FlaskForm):
-    title = StringField(label=u'博客标题', validator=[
+    title = StringField(label=u'博客标题', validators=[
                         DataRequired()], id='titlecode')
     body = PageDownField(label=u'博客内容', validators=[DataRequired()])
     submit = SubmitField(label=u'提交')

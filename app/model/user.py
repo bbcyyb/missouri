@@ -85,7 +85,7 @@ class User(UserMixin, db.Model):
     @property
     def followed_posts(self):
         return Post.query.join(Follow, Follow.followed_id == Post.author_id) \
-            .filter(Follow.folower_id == self.id)
+            .filter(Follow.follower_id == self.id)
 
     def can(self, permissions):
         return self.itsrole is not None and \

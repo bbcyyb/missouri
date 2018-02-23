@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-python missouri.py runserver
+python missouri.py dev

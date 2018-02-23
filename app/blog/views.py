@@ -23,11 +23,10 @@ from ..model.user import User
 from ..model.role import Role
 from ..common.decorators import permission_required
 
-
 COOKIE_MAX_AGE = 30 * 24 * 60 * 60
 
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     show_followed = False
     if current_user.is_authenticated:
@@ -36,13 +35,15 @@ def index():
         query = current_user.followed_posts
     else:
         query = Post.query
-        page = request.args.get('page', 1, type=int)
+    page = request.args.get('page', 1, type=int)
     pagination = query.order_by(Post.timestamp.desc()).paginate(
-        page, per_page=10,
-        error_out=False)
+        page, per_page=10, error_out=False)
     posts = pagination.items
-    return render_template('index.html', show_followed=show_followed,
-                           posts=posts, pagination=pagination)
+    return render_template(
+        'index.html',
+        show_followed=show_followed,
+        posts=posts,
+        pagination=pagination)
 
 
 @app.route('/all')
@@ -66,10 +67,10 @@ def post(id):
     post = Post.query.get_or_404(id)
     form = CommentForm()
     if form.validate_on_submit():
-        comment = Comment(body=form.body.data,
-                          post=post,
-                          author=current_user._get_current_object(),
-                          )
+        comment = Comment(
+            body=form.body.data,
+            post=post,
+            author=current_user._get_current_object(), )
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('blog.post', id=post.id, page=-1))
@@ -77,11 +78,14 @@ def post(id):
     if page == -1:
         page = (post.comments.count() - 1) / 10 + 1
     pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
-        page, per_page=10, error_out=False
-    )
+        page, per_page=10, error_out=False)
     comments = pagination.items
-    return render_template('post.html', posts=[post], form=form,
-                           comments=comments, pagination=pagination)
+    return render_template(
+        'post.html',
+        posts=[post],
+        form=form,
+        comments=comments,
+        pagination=pagination)
 
 
 @app.route('/blog', methods=['GET', 'POST'])
@@ -90,11 +94,13 @@ def blog():
     form = PostForm()
     if current_user.can(Permission.WRITE_ARTICLES) and \
             form.validate_on_submit():
-        post = Post(title=form.title.data, body=form.body.data,
-                    author=current_user._get_current_object())
+        post = Post(
+            title=form.title.data,
+            body=form.body.data,
+            author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('main.index'))
+        return redirect(url_for('blog.index'))
     return render_template('blog.html', form=form)
 
 
@@ -152,9 +158,16 @@ def followers(username):
     u = User.query.filter_by(username=username).first()
     page = request.args.get('page', 1, type=int)
     pagination = u.followers.paginate(page, per_page=10, error_out=False)
-    follows = [{'user': item.follower, 'timestamp': item.timestamp}
-               for item in pagination.items]
-    return render_template('followers.html', title=u'的粉丝', user=u, pagination=pagination, follows=follows)
+    follows = [{
+        'user': item.follower,
+        'timestamp': item.timestamp
+    } for item in pagination.items]
+    return render_template(
+        'followers.html',
+        title=u'的粉丝',
+        user=u,
+        pagination=pagination,
+        follows=follows)
 
 
 @app.route('/followed-by/<username>')
@@ -162,9 +175,16 @@ def followed_by(username):
     u = User.query.filter_by(username=username).first()
     page = request.args.get('page', 1, type=int)
     pagination = u.followed.paginate(page, per_page=10, error_out=False)
-    follows = [{'user': item.followed, 'timestamp': item.timestamp}
-               for item in pagination.items]
-    return render_template('followers.html', title=u'的关注', user=u, pagination=pagination, follows=follows)
+    follows = [{
+        'user': item.followed,
+        'timestamp': item.timestamp
+    } for item in pagination.items]
+    return render_template(
+        'followers.html',
+        title=u'的关注',
+        user=u,
+        pagination=pagination,
+        follows=follows)
 
 
 @app.route('/edit-profile', methods=['GET', 'POST'])
@@ -176,7 +196,7 @@ def edit_profile():
         current_user.location = form.location.data
         current_user.about_me = form.about_me.data
         flash(u'你的个人信息已经被更改')
-        db.session.add(current_user)              # 更新个人资料
+        db.session.add(current_user)  # 更新个人资料
         db.session.commit()
         return redirect(url_for('blog.user', username=current_user.username))
     form.name.data = current_user.name
@@ -241,8 +261,8 @@ def moderate():
     pagination = Comment.query.order_by(Comment.timestamp.desc()).paginate(
         page, per_page=10, error_out=False)
     comments = pagination.items
-    return render_template('moderate.html',
-                           comments=comments, pagination=pagination, page=page)
+    return render_template(
+        'moderate.html', comments=comments, pagination=pagination, page=page)
 
 
 @app.route('/moderate/disable/<int:id>')
@@ -253,7 +273,8 @@ def moderate_disable(id):
     comment.disabled = True
     db.session.add(comment)
     db.session.commit()
-    return redirect(url_for('blog.moderate', page=request.args.get('page', 1, type=int)))
+    return redirect(
+        url_for('blog.moderate', page=request.args.get('page', 1, type=int)))
 
 
 @app.route('/moderate/enable/<int:id>')
@@ -264,7 +285,8 @@ def moderate_enable(id):
     comment.disabled = False
     db.session.add(comment)
     db.session.commit()
-    return redirect(url_for('blog.moderate', page=request.args.get('page', 1, type=int)))
+    return redirect(
+        url_for('blog.moderate', page=request.args.get('page', 1, type=int)))
 
 
 @app.app_context_processor
