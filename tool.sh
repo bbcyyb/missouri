@@ -36,7 +36,7 @@ environment() {
 cleanup() {
     DB_FILE=data-dev.sqlite
     MIGRATIONS_FOLDER=migrations/
-    echo -e "=======> start to ${SKYBLUE}clean${EOS} database"
+    echo -e "=======> start to ${SKYBLUE}cleanup${EOS}"
 
     if [ -d "$MIGRATIONS_FOLDER" ]
     then

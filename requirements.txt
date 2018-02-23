@@ -1,4 +1,4 @@
-False, debug=Truealabaster==0.7.6
+alabaster==0.7.6
 alembic==0.9.6
 argh==0.26.1
 astroid==1.6.0
