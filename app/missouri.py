@@ -2,8 +2,8 @@
 
 import os
 from common.util import print_skyblue
-import create_app
-import db
+from . import create_app
+from . import db
 from flask_script import Manager
 from flask_migrate import Migrate
 from flask_migrate import MigrateCommand
