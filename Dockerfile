@@ -25,11 +25,9 @@ RUN pip install uwsgi
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
     && rm /etc/nginx/conf.d/default.conf
 
-COPY nginx.conf /etc/nginx/conf.d/
+COPY ./bin/uwsgi.ini /etc/uwsgi/
 
-COPY uwsgi.ini /etc/uwsgi/
-
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY ./bin/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY requirements.txt /requirements.txt
 
@@ -38,7 +36,7 @@ RUN pip install -r requirements.txt
 EXPOSE 80 443
 
 
-COPY entrypoint.sh /entrypoint.sh
+COPY ./bin/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
@@ -48,4 +46,4 @@ WORKDIR /app
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/ect/supervisor/conf.d/supervisord.conf"]

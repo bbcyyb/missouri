@@ -38,7 +38,7 @@ cleanup() {
     MIGRATIONS_FOLDER=migrations/
     echo -e "=======> start to ${SKYBLUE}cleanup${EOS}"
 
-    if [ -d "$MIGRATIONS_FOLDER" ]
+    if [[ -d "$MIGRATIONS_FOLDER" ]]
     then
         rm -rf $MIGRATIONS_FOLDER
         echo -e "${GREEN}delte ${MIGRATIONS_FOLDER} successfully${EOS}"
@@ -46,7 +46,7 @@ cleanup() {
         echo -e "${YELLOW}do not find ${MIGRATIONS_FOLDER}${EOS}"
     fi
 
-    if [ -f "$DB_FILE" ]
+    if [[ -f "$DB_FILE" ]]
     then
         rm -rf $DB_FILE
         echo -e "${GREEN}delte database file ${DB_FILE} successfully${EOS}"
@@ -57,7 +57,7 @@ cleanup() {
 
 deploy() {
     echo -e "=======> start to ${SKYBLUE}deploy${EOS} development environment"
-    python missouri.py deploy
+    python app/missouri.py deploy
 }
 
 reset() {
@@ -65,9 +65,9 @@ reset() {
     deploy 
 }
 
-[ $# -eq 0 ] && usage
+[[ $# -eq 0 ]] && usage
 
-while [ $# -gt 0 ]; do
+while [[ $# -gt 0 ]]; do
     case $1 in
         -h | --help)
             usage

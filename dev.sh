@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-python missouri.py dev
+python app/missouri.py dev
