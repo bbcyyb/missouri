@@ -58,7 +58,7 @@ cleanup() {
 
 deploy() {
     echo -e "=======> start to ${SKYBLUE}deploy${EOC} development environment"
-    python app/missouri.py deploy
+    python src/missouri.py deploy
 }
 
 reset() {

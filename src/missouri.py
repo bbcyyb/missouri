@@ -2,8 +2,8 @@
 
 import os
 from common.util import print_skyblue
-from . import create_app
-from . import db
+from app import create_app
+from app import db
 from flask_script import Manager
 from flask_migrate import Migrate
 from flask_migrate import MigrateCommand
@@ -72,8 +72,8 @@ def deploy():
     from flask_migrate import upgrade
     from flask_migrate import init
     from flask_migrate import migrate
-    from app.model.role import Role
-    from app.model.user import User
+    from model.role import Role
+    from model.user import User
 
     init()
     migrate(message='initial migration')

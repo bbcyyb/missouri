@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 
 from os import path
-from os import environ
 from werkzeug.routing import BaseConverter
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -11,7 +10,7 @@ from flask_moment import Moment
 from flask_pagedown import PageDown
 from flask import Flask
 from flask import request
-from config import config
+from config import conf
 
 
 class RegexConverter(BaseConverter):
@@ -35,8 +34,8 @@ basedir = path.abspath(path.dirname(__file__))
 
 def create_app(config_name):
     app = Flask(__name__)
-    app.config.from_object(config[config_name])
-    config[config_name].init_app(app)
+    app.config.from_object(conf[config_name])
+    conf[config_name].init_app(app)
 
     bootstrap.init_app(app)
     db.init_app(app)
@@ -45,12 +44,18 @@ def create_app(config_name):
     moment.init_app(app)
     pagedown.init_app(app)
 
-    from .blog import blog as blog_blueprint
-    from .auth import auth as auth_blueprint
+    from blog import blog as blog_blueprint
+    from auth import auth as auth_blueprint
     app.register_blueprint(
-        blog_blueprint, static_folder='static', template_folder='templates')
+        blog_blueprint,
+        static_folder='static',
+        template_folder='templates'
+    )
     app.register_blueprint(
-        auth_blueprint, url_prefix='/auth', static_folder='static', template_folder='templates'
+        auth_blueprint,
+        url_prefix='/auth',
+        static_folder='static',
+        template_folder='templates'
     )
 
     @app.template_test('current_link')

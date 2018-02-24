@@ -42,9 +42,9 @@ COPY ./bin/entrypoint.sh /conf/entrypoint.sh
 
 RUN chmod +x /conf/entrypoint.sh
 
-COPY ./app /app
+COPY ./src /src
 
-WORKDIR /app
+WORKDIR /src
 
 ENTRYPOINT ["/conf/entrypoint.sh"]
 

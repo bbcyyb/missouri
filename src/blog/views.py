@@ -15,13 +15,13 @@ from .forms import CommentForm
 from .forms import PostForm
 from .forms import EditProfileForm
 from .forms import EditProfileAdministratorForm
-from .. import db
-from ..model.permission import Permission
-from ..model.post import Post
-from ..model.comment import Comment
-from ..model.user import User
-from ..model.role import Role
-from ..common.decorators import permission_required
+from app import db
+from model.permission import Permission
+from model.post import Post
+from model.comment import Comment
+from model.user import User
+from model.role import Role
+from common.decorators import permission_required
 
 COOKIE_MAX_AGE = 30 * 24 * 60 * 60
 

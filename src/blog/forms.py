@@ -9,7 +9,7 @@ from wtforms.validators import DataRequired
 from wtforms.validators import Email
 from wtforms.validators import Length
 from flask_pagedown.fields import PageDownField
-from ..model.role import Role
+from model.role import Role
 
 
 class PostForm(FlaskForm):

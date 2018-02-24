@@ -1,9 +1,5 @@
 #!/bin/bash
 
-pushd app/
-PYTHONPATH="$(pwd):${PYTHONPATH}"
-export PYTHONPATH
-PATH="$(pwd):${PATH}"
-export PATH
+pushd src/
 python ./missouri.py dev
 popd

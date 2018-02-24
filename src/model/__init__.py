@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from .. import db
-from .. import login_manager
-from .post import Post
-from ..model.user import User
-from .anonymous_user import AnonymousUser
-from .comment import Comment
+from app import db
+from app import login_manager
+from post import Post
+from user import User
+from anonymous_user import AnonymousUser
+from comment import Comment
 
 
 @login_manager.user_loader

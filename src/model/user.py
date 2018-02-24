@@ -5,11 +5,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app, request, url_for
 from datetime import datetime
-from .. import db
-from .permission import Permission
-from .follow import Follow
-from .role import Role
-from .post import Post
+from app import db
+from permission import Permission
+from follow import Follow
+from role import Role
+from post import Post
 
 
 class User(UserMixin, db.Model):

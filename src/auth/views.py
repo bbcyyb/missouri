@@ -11,9 +11,9 @@ from flask_login import current_user
 from . import auth as app
 from .forms import LoginForm
 from .forms import RegisterForm
-from .. import db
-from ..model.user import User
-from ..common.email import send_mail
+from app import db
+from model.user import User
+from common.email import send_mail
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -47,10 +47,10 @@ def register():
         db.session.add(user)
         db.session.commit()
         User.add_self_follows()
-        #token = user.generate_confirm_token()
-        #send_mail(user.email, u'请确认您的帐号', 'confirm',
+        # token = user.generate_confirm_token()
+        # send_mail(user.email, u'请确认您的帐号', 'confirm',
         #          user=user, token=token)
-        #flash(u'有一份邮件已经发往您的邮箱')
+        # flash(u'有一份邮件已经发往您的邮箱')
         return redirect(url_for('auth.login'))
     else:
         return render_template('login.html', title=u'注册', form=form)
