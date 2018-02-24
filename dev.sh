@@ -1,4 +1,6 @@
 #!/bin/bash
 
 
-python app/missouri.py dev
+pushd app/
+python ./missouri.py dev
+popd
