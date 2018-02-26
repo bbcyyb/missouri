@@ -10,6 +10,7 @@ USE_STATIC_PATH=${USE_STATIC_PATH:-'/src/static'}
 USE_LISTEN_PORT=${USE_LISTEN_PORT:-80}
 PRE_START_PATH=$P{PRE_START_PATH:-'/conf/prestart.sh'}
 
+echo -e "** Rewrite nginx configuration information"
 echo "server {
     listen ${USE_LISTEN_PORT};
     location / {
@@ -33,6 +34,7 @@ echo "}" >> /etc/nginx/conf.d/nginx.conf
 
 echo "** Checking for script in ${PRE_START_PATH}"
 if [[ -f ${PRE_START_PATH} ]]; then
+    chmod +x ${PRE_START_PATH}
     echo "** Running script ${PRE_START_PATH}"
     source ${PRE_START_PATH}
 else

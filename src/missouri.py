@@ -9,6 +9,8 @@ from flask_migrate import Migrate
 from flask_migrate import MigrateCommand
 
 COV = None
+rootdir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+migrationsdir = os.path.join(rootdir, "migrations")
 
 if os.environ.get('MISSOURI_COVERAGE'):
     import coverage
@@ -51,8 +53,7 @@ def test(coverage=False):
         COV.save()
         print_skyblue('Coverage Summary:')
         COV.report()
-        basedir = os.path.abspath(os.path.dirname(__file__))
-        covdir = os.path.join(basedir, 'tmp/coverage')
+        covdir = os.path.join(rootdir, 'coverage')
         COV.html_report(directory=covdir)
         print_skyblue(
             'HTML version: file://{covdir}/index.html'.format(covdir=covdir))
@@ -74,10 +75,9 @@ def deploy():
     from flask_migrate import migrate
     from model.role import Role
     from model.user import User
-
-    init()
-    migrate(message='initial migration')
-    upgrade()
+    init(directory=migrationsdir)
+    migrate(directory=migrationsdir, message='initial migration')
+    upgrade(directory=migrationsdir)
     # create roles
     Role.insert_roles()
     # make all users follow themselives.

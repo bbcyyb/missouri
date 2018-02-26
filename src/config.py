@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
+
+rootdir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
 
 
 class Config(object):
@@ -30,7 +31,7 @@ class TestingConfig(Config):
     """
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
+        'sqlite:///' + os.path.join(rootdir, 'data-test.sqlite')
     WTF_CSRF_ENABLED = False
 
 
@@ -40,7 +41,7 @@ class DevelopmentConfig(Config):
     """
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+        'sqlite:///' + os.path.join(rootdir, 'data-dev.sqlite')
 
 
 class ProductionConfig(Config):
@@ -48,7 +49,7 @@ class ProductionConfig(Config):
     Production environment
     """
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+        'sqlite:///' + os.path.join(rootdir, 'data.sqlite')
 
 
 class HerokuConfig(ProductionConfig):

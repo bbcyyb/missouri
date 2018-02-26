@@ -58,7 +58,9 @@ cleanup() {
 
 deploy() {
     echo -e "=======> start to ${SKYBLUE}deploy${EOC} development environment"
-    python src/missouri.py deploy
+    pushd src/
+    python ./missouri.py deploy
+    popd
 }
 
 reset() {
@@ -73,7 +75,15 @@ build() {
 
 run() {
     echo -e "=======> start to ${SKYBLUE}run missouri docker image${EOC}"
-    docker run missouri:latest
+    docker run --name missouri -P -d missouri:latest
+}
+
+showImages() {
+    docker images | grep -E "(missXXX)" | awk '{print $3}' | uniq | xargs -I {} docker rmi --force {}
+}
+
+removeImages() {
+    echo -e "123"
 }
 
 [[ $# -eq 0 ]] && usage

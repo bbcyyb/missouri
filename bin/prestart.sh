@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 
 echo "** deploy missouri..."
-python /app/missouri.py deploy
+pushd src/
+python ./missouri.py deploy
+popd
