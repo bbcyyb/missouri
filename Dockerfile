@@ -40,7 +40,7 @@ EXPOSE 80 443
 
 COPY ./bin/entrypoint.sh /conf/entrypoint.sh
 
-RUN chmod +x /conf/entrypoint.sh
+RUN chmod +x /conf/*.sh
 
 COPY ./src /src
 

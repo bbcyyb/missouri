@@ -8,7 +8,7 @@ echo "client_max_body_size ${USE_NGINX_MAX_UPLOAD};" > /etc/nginx/conf.d/upload.
 USE_STATIC_URL=${USE_STATIC_URL:-'/static'}
 USE_STATIC_PATH=${USE_STATIC_PATH:-'/src/static'}
 USE_LISTEN_PORT=${USE_LISTEN_PORT:-80}
-PRE_START_PATH=$P{PRE_START_PATH:-'/conf/prestart.sh'}
+PRE_START_PATH=${PRE_START_PATH:-'/conf/prestart.sh'}
 
 echo -e "** Rewrite nginx configuration information"
 echo "server {

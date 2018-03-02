@@ -23,6 +23,7 @@ usage() {
     echo -e "--deploy       deploy new env"
     echo -e "--reset        reset development environment"
     echo -e "--build        build a docker image"
+    echo -e "--showImages   show all images in local docker repository"
     exit 1
 }
 
@@ -79,7 +80,7 @@ run() {
 }
 
 showImages() {
-    docker images | grep -E "(missXXX)" | awk '{print $3}' | uniq | xargs -I {} docker rmi --force {}
+    docker images | grep -E "(missouri)" # | awk '{print $3}' | uniq | xargs -I {} docker rmi --force {}
 }
 
 removeImages() {
@@ -116,6 +117,10 @@ while [[ $# -gt 0 ]]; do
             ;;
         --run)
             run
+            shift 1
+            ;;
+        --showImages)
+            showImages
             shift 1
             ;;
         *)
